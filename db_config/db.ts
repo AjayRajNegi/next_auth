@@ -1,19 +1,25 @@
+//Setting up connection to mongoDB database using mongoose.
 import mongoose from "mongoose";
 
+const MONGODB_URI = process.env.MONGODB_URI;
 export async function connect() {
-  try {
-    mongoose.connect(process.env.MONGO_URL!);
-    const connection = mongoose.connection;
+  //Get the current state of the MongoDB connection.
+  const connectionState = mongoose.connection.readyState;
 
-    connection.on("connected", () => {
-      console.log("MongoDB connected.");
-    });
-
-    connection.on("error", (err) => {
-      console.log("MongoDB connection error." + err);
-    });
-  } catch (err: any) {
-    console.log("Error in connecting to database.");
-    console.log(err);
+  if (connectionState === 1) {
+    console.log("Already Connected.");
+    return;
   }
+  if (connectionState === 2) {
+    console.log("Connecting.....");
+    return;
+  }
+  try {
+    mongoose.connect(MONGODB_URI!, {
+      dbName: "next_auth",
+      //Mongoose will queue the commands and run them when the connection is established.
+      bufferCommands: true,
+    });
+    console.log("Connection to database is established.");
+  } catch (error: any) {}
 }
