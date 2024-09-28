@@ -1,5 +1,5 @@
-import User from "@/models/userModel";
-import { connect } from "@/db_config/db";
+import User from "@/src/models/userModel";
+import { connect } from "@/src/db_config/db";
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: "Invalid token." }, { status: 400 });
     }
 
-    user.isVerified = true;
+    user.isVerfied = true;
     user.verifyToken = undefined;
     user.verifyTokenExpiry = undefined;
 

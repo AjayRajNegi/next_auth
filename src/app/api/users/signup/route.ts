@@ -1,8 +1,8 @@
-import { connect } from "@/db_config/db";
-import User from "@/models/userModel";
+import { connect } from "@/src/db_config/db";
+import User from "@/src/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import { sendMail } from "@/helpers/mailer";
+import { sendMail } from "@/src/helpers/mailer";
 
 connect();
 
