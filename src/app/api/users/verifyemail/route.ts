@@ -1,6 +1,6 @@
+import User from "@/src/models/userModel";
 import { connect } from "@/src/db_config/db";
 import { NextRequest, NextResponse } from "next/server";
-import User from "@/src/models/userModel";
 
 connect();
 
