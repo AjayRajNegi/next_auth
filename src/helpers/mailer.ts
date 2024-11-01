@@ -1,8 +1,18 @@
 import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
-import User from "@/src/models/userModel";
+import User from "../models/userModel";
 
-export const sendMail = async ({ email, emailType, userId }: any) => {
+interface SendMailParams {
+  email: string;
+  emailType: string;
+  userId: string;
+}
+
+export const sendMail = async ({
+  email,
+  emailType,
+  userId,
+}: SendMailParams) => {
   try {
     const hashedToken = await bcrypt.hash(userId.toString(), 10);
 
@@ -22,7 +32,7 @@ export const sendMail = async ({ email, emailType, userId }: any) => {
       });
     }
 
-    var transport = nodemailer.createTransport({
+    const transport = nodemailer.createTransport({
       host: "sandbox.smtp.mailtrap.io",
       port: 2525,
       auth: {
@@ -47,7 +57,7 @@ export const sendMail = async ({ email, emailType, userId }: any) => {
     //Responsible for sending the email using the configured transporter created by Nodemailer
     const mailResponse = await transport.sendMail(mailOptions);
     return mailResponse;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log("Could not connect to nodemailer.", error);
   }
 };

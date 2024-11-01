@@ -1,12 +1,9 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import User from "@/src/models/userModel";
-import { connect } from "@/src/db_config/db";
-import { NextRequest, NextResponse } from "next/server";
+import { connect } from "../../../../db_config/db";
+import { NextResponse } from "next/server";
 
 connect();
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const response = NextResponse.json({
       message: "Logout Successfull.",
@@ -19,7 +16,7 @@ export async function GET(request: NextRequest) {
     });
 
     return response;
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }

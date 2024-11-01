@@ -11,6 +11,7 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
@@ -21,9 +22,8 @@ export default function LoginPage() {
       console.log("Login success", response.data);
       toast.success("Login success");
       router.push("/profile");
-    } catch (error: any) {
-      console.log("Login failed", error.message);
-      toast.error(error.message);
+    } catch (error: unknown) {
+      console.log("Login failed", error);
     } finally {
       setLoading(false);
     }

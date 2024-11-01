@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs";
-import User from "@/src/models/userModel";
-import { connect } from "@/src/db_config/db";
-import { sendMail } from "@/src/helpers/mailer";
+import User from "../../../../models/userModel";
+import { connect } from "../../../../db_config/db";
+import { sendMail } from "../../../../helpers/mailer";
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
       success: true,
       savedUser,
     });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }

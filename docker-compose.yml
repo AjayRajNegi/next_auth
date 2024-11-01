@@ -1,0 +1,40 @@
+# docker-compose.yml
+
+version: "3.8"
+
+services:
+  # Next.js application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - MONGO_URI=mongodb+srv://ajayrajnegi111:UWRlSfLe3aQURuPF@cluster0.fhgy8.mongodb.net/?retryWrites=true&w=majority
+      - TOKEN_SECRET=ajayrajnegi111
+      - DOMAIN=http://localhost:3000
+
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+
+  # MongoDB service
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  # Nginx for reverse proxy
+  # nginx:
+  #   image: nginx:latest
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #   depends_on:
+  #     - app
+
+volumes:
+  mongo-data:

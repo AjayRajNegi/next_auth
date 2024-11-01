@@ -1,5 +1,5 @@
-import User from "@/src/models/userModel";
-import { connect } from "@/src/db_config/db";
+import User from "../../../../models/userModel";
+import { connect } from "../../../../db_config/db";
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       message: "Email verified successfully",
       success: true,
     });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }
